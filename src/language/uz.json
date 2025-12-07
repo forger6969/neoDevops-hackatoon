@@ -22,5 +22,8 @@
     "noFavorites": "Sevimlilar ro'yxati bo'sh",
     "noResults": "Hech narsa topilmadi",
     "postItem": "Elon qoshish",
-    "profilItem": "Profil"
+    "profilItem": "Profil",
+    "findOption": "Topib oldim",
+    "lostOption": "Yoqotib qoydim",
+    "petTypeForm": "Hayvon nomi (mushuk, it...)"
 }

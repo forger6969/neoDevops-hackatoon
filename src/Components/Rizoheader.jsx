@@ -74,7 +74,7 @@ const RizoHeader = () => {
                     className="block w-full text-left px-4 py-2 hover:bg-gray-100"
                     onClick={() => setOpenSelect(false)}
                   >
-                    Topib oldim
+                    {t("findOption")}
                   </Link>
 
                   <Link
@@ -82,7 +82,7 @@ const RizoHeader = () => {
                     className="block w-full text-left px-4 py-2 hover:bg-gray-100"
                     onClick={() => setOpenSelect(false)}
                   >
-                    Yo‘qotib qo‘ydim
+                    {t("lostOption")}
                   </Link>
                 </div>
               )}

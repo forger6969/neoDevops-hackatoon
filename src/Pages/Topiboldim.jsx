@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const TopibOldim = () => {
   const [form, setForm] = useState({
@@ -8,6 +9,8 @@ const TopibOldim = () => {
     phone: "",
     description: ""
   });
+
+  const { t } = useTranslation()
 
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -20,7 +23,7 @@ const TopibOldim = () => {
 
   return (
     <div className="max-w-xl mx-auto mt-10 p-5 bg-white shadow-lg rounded-xl">
-      <h1 className="text-2xl font-bold mb-4 text-center">🐶 Hayvon topib oldim</h1>
+      <h1 className="text-2xl font-bold mb-4 text-center">🐶 {t("findOption")}</h1>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
 
