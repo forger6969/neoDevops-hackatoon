@@ -2,10 +2,11 @@ import React from "react";
 import { FiUser, FiPlusCircle } from "react-icons/fi";
 import logo from "../assets/logo.png";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 const Rizoheader = () => {
 
-  const { i18n } = useTranslation()
+  const { i18n, t } = useTranslation()
 
   return (
     <header className="w-full bg-[#002f33] py-4">
@@ -13,7 +14,9 @@ const Rizoheader = () => {
 
         {/* LOGO */}
         <div className="flex items-center gap-2 cursor-pointer">
-          <img src={logo} alt="logo" className="h-[100px] h-[100px]" />
+          <Link to="/">
+            <img src={logo} alt="logo" className="h-[100px] h-[100px]" />
+          </Link>
         </div>
 
         {/* RIGHT SIDE */}
@@ -32,13 +35,13 @@ const Rizoheader = () => {
           {/* PROFILE */}
           <button className="flex items-center gap-2">
             <FiUser size={22} />
-            <span>Profil</span>
+            <span>{t("profilItem")}</span>
           </button>
 
           {/* ADD POST BUTTON */}
           <button className="flex items-center gap-2 bg-white text-[#002f33] px-4 py-2 rounded-lg font-semibold">
             <FiPlusCircle size={22} />
-            E'lon qo‘shish
+            {t("postItem")}
           </button>
 
         </div>
