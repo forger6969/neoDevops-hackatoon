@@ -2,14 +2,16 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 
-const TopibOldim = () => {
+const TopibOldim = ({ ownerId }) => {
   const [form, setForm] = useState({
+    title: "",
     type: "",
+    name: "",
     color: "",
     lastSeenLocation: "",
-    email: "",
     description: "",
-    status: "found",
+    price: "",
+    status: "sell",
     image: null
   });
 
@@ -28,30 +30,34 @@ const TopibOldim = () => {
     e.preventDefault();
 
     const formData = new FormData();
+    formData.append("title", form.title);
     formData.append("type", form.type);
+    formData.append("name", form.name);
     formData.append("color", form.color);
     formData.append("lastSeenLocation", form.lastSeenLocation);
-    formData.append("email", form.email);
     formData.append("description", form.description);
+    formData.append("price", form.price);
     formData.append("status", form.status);
-
-    if (form.image) {
-      formData.append("image", form.image);
-    }
+    formData.append("owner", ownerId); // передаём ID владельца
+    if (form.image) formData.append("images", form.image); // backend ожидает массив, можно обработать как single file
 
     try {
-      const res = await axios.post("https://hakaton-api-2.onrender.com/post/create", {
-        form
-      })
+      const res = await axios.post(
+        "https://hakaton-api-2.onrender.com/post/create",
+        formData,
+        { headers: { "Content-Type": "multipart/form-data" } }
+      );
       console.log("Успешно отправлено:", res.data);
       alert("E'lon muvaffaqiyatli joylandi!");
       setForm({
+        title: "",
         type: "",
+        name: "",
         color: "",
         lastSeenLocation: "",
-        email: "",
         description: "",
-        status: "found",
+        price: "",
+        status: "sell",
         image: null
       });
     } catch (err) {
@@ -68,9 +74,27 @@ const TopibOldim = () => {
 
         <input
           type="text"
+          name="title"
+          placeholder="E'lon sarlavhasi"
+          value={form.title}
+          onChange={handleChange}
+          className="border p-3 rounded-lg"
+        />
+
+        <input
+          type="text"
           name="type"
           placeholder="Hayvon turi (it, mushuk...)"
           value={form.type}
+          onChange={handleChange}
+          className="border p-3 rounded-lg"
+        />
+
+        <input
+          type="text"
+          name="name"
+          placeholder="Hayvon ismi"
+          value={form.name}
           onChange={handleChange}
           className="border p-3 rounded-lg"
         />
@@ -94,10 +118,10 @@ const TopibOldim = () => {
         />
 
         <input
-          type="text"
-          name="email"
-          placeholder="Telefon yoki email"
-          value={form.email}
+          type="number"
+          name="price"
+          placeholder="Narxi (so'mda)"
+          value={form.price}
           onChange={handleChange}
           className="border p-3 rounded-lg"
         />
