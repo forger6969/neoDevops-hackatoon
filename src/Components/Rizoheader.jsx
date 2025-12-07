@@ -1,8 +1,12 @@
 import React from "react";
 import { FiUser, FiPlusCircle } from "react-icons/fi";
 import logo from "../assets/logo.png";
+import { useTranslation } from "react-i18next";
 
 const Rizoheader = () => {
+
+  const { i18n } = useTranslation()
+
   return (
     <header className="w-full bg-[#002f33] py-4">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6">
@@ -18,8 +22,10 @@ const Rizoheader = () => {
           {/* LANGUAGE SELECT */}
           <select
             className="bg-transparent border border-white text-white px-2 py-1 rounded-md outline-none cursor-pointer"
+            onChange={(e) => i18n.changeLanguage(e.target.value)}
+            value={i18n.language} // чтобы select знал текущий язык
           >
-            <option value="oz" className="text-black">O‘Z</option>
+            <option value="uz" className="text-black">O‘Z</option>
             <option value="ru" className="text-black">Рус</option>
           </select>
 
