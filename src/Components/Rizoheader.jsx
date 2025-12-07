@@ -49,7 +49,7 @@ const RizoHeader = () => {
 
             {/* PROFILE */}
             <button
-              onClick={() => navigate("/auth")}
+              onClick={() => navigate("/profile")}
               className="flex items-center gap-2"
             >
               <FiUser size={24} />

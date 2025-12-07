@@ -15,6 +15,7 @@ import Auth from "./Pages/Auth.jsx";  // ⬅️ 1. BU QATORNI QO'SHING
 import "./language/init.js";
 import PetDetails from './Pages/PetDetails.jsx';
 import Pets from './Components/Pets.jsx';
+import ProfilePage from "./Pages/ProfilePage.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -47,6 +48,9 @@ const router = createBrowserRouter([
       {
         path: "/pets",
         element: <Pets />
+      }, {
+        path: "/profile",
+        element: <ProfilePage />
       }
     ],
 

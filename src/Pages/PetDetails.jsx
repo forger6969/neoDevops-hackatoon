@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { Heart, ArrowLeft } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -13,26 +14,23 @@ const PetDetails = () => {
   const [error, setError] = useState(null);
   const [favorites, setFavorites] = useState([]);
 
-  // Fetch single pet from db.json
+  const BASE_URL = 'https://hakaton-api-2.onrender.com/api'; // Render server URL
+
   useEffect(() => {
     const fetchPet = async () => {
       try {
         setLoading(true);
-        // MongoDB ID format uchun to'g'ridan-to'g'ri ID bilan qidirish
-        const response = await fetch(`http://localhost:3001/pets`);
-        if (!response.ok) {
-          throw new Error('Failed to fetch pets');
-        }
-        const data = await response.json();
-        // Array ichidan ID bo'yicha topish
-        const foundPet = data.find(p => p._id === petId);
+        const res = await axios.get(`${BASE_URL}/pets`); // Render URL ishlatildi
+        const pets = res.data;
+
+        const foundPet = pets.find(p => p._id === petId);
         if (!foundPet) {
           throw new Error('Pet not found');
         }
         setPet(foundPet);
       } catch (err) {
-        setError(err.message);
         console.error('Error fetching pet:', err);
+        setError(err.message);
       } finally {
         setLoading(false);
       }
@@ -57,17 +55,14 @@ const PetDetails = () => {
   // toggleFavorite
   const toggleFavorite = (pet) => {
     setFavorites(prev => {
-      const exists = prev.find(fav => fav.id === pet.id);
+      const exists = prev.find(fav => fav._id === pet._id);
       if (exists) {
-        return prev.filter(fav => fav.id !== pet.id);
+        return prev.filter(fav => fav._id !== pet._id);
       } else {
         return [...prev, pet]; // object saqlash
       }
     });
   };
-
-
-
 
   const getTypeLabel = (type) => {
     const labels = {
@@ -78,7 +73,6 @@ const PetDetails = () => {
     return labels[type]?.[i18n.language] || type;
   };
 
-  // Loading state
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -90,7 +84,6 @@ const PetDetails = () => {
     );
   }
 
-  // Error state
   if (error || !pet) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -109,7 +102,6 @@ const PetDetails = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Back Button Section */}
       <div className="bg-white border-b">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <button
@@ -122,13 +114,12 @@ const PetDetails = () => {
         </div>
       </div>
 
-      {/* Pet Details */}
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
           <div className="relative">
             <img
               src={pet.images && pet.images.length > 0
-                ? `http://localhost:3001${pet.images[0]}`
+                ? `${BASE_URL}${pet.images[0]}` // Render server bilan to'g'rilandi
                 : 'https://via.placeholder.com/800x400?text=No+Image'}
               alt={pet.name}
               className="w-full h-96 object-cover"
@@ -144,7 +135,7 @@ const PetDetails = () => {
               className="absolute top-4 right-4 p-3 bg-white rounded-full shadow-md hover:bg-gray-100"
             >
               <Heart
-                className={`w-6 h-6 ${favorites.find(fav => fav.id === pet.id)
+                className={`w-6 h-6 ${favorites.find(fav => fav._id === pet._id)
                   ? 'fill-red-500 text-red-500'
                   : 'text-gray-600'
                   }`}
