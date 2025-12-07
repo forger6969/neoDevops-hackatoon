@@ -11,6 +11,7 @@ import Home from "./Pages/Home.jsx";
 import Topiboldim from "./Pages/Topiboldim.jsx";
 import Yoqotibqoydim from "./Pages/Yoqotibqoydim.jsx";
 import ForFavorites from './Pages/forFavorites.jsx';
+import Auth from "./Pages/Auth.jsx";  // ⬅️ 1. BU QATORNI QO'SHING
 import "./language/init.js";
 
 const router = createBrowserRouter([
@@ -33,7 +34,11 @@ const router = createBrowserRouter([
       {
         path: "/favorites",
         element: <ForFavorites />
-      }
+      },
+      {
+        path: "/auth",  // ⬅️ 2. BU QISMNI QO'SHING
+        element: <Auth />,
+      },
     ],
   },
 ]);
