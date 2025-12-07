@@ -10,11 +10,13 @@ import RizoHeader from "./Components/Rizoheader.jsx";
 import Home from "./Pages/Home.jsx";
 import Topiboldim from "./Pages/Topiboldim.jsx";
 import Yoqotibqoydim from "./Pages/Yoqotibqoydim.jsx";
+import ForFavorites from './Pages/forFavorites.jsx';
+import "./language/init.js";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <RizoHeader />, // Header har sahifada bo‘ladi
+    element: <RizoHeader />,
     children: [
       {
         path: "/",

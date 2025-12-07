@@ -2,10 +2,16 @@ import React, { useState } from "react";
 import { FiUser, FiHeart, FiPlusCircle } from "react-icons/fi";
 import { Link, useNavigate, Outlet } from "react-router-dom";
 import logo from "../assets/logo.png";
+import { useTranslation } from "react-i18next";
 
 const RizoHeader = () => {
   const navigate = useNavigate();
   const [openSelect, setOpenSelect] = useState(false);
+  const { i18n, t } = useTranslation();
+
+  const changeLanguage = (e) => {
+    i18n.changeLanguage(e.target.value);
+  };
 
   return (
     <>
@@ -24,9 +30,13 @@ const RizoHeader = () => {
           <div className="flex items-center gap-8 text-lg relative">
 
             {/* LANGUAGE */}
-            <select className="bg-transparent border border-white px-2 py-1 rounded-md">
-              <option className="text-black">O‘Z</option>
-              <option className="text-black">Рус</option>
+            <select
+              className="bg-transparent border border-white px-2 py-1 rounded-md text-black cursor-pointer"
+              value={i18n.language}
+              onChange={changeLanguage}
+            >
+              <option value="uz">O‘Z</option>
+              <option value="ru">Рус</option>
             </select>
 
             {/* FAVORITES */}
@@ -43,7 +53,7 @@ const RizoHeader = () => {
               className="flex items-center gap-2"
             >
               <FiUser size={24} />
-              Profil
+              {t("profilItem")}
             </button>
 
             {/* ADD POST BUTTON */}
@@ -53,7 +63,7 @@ const RizoHeader = () => {
                 className="flex items-center gap-2 bg-white text-[#002f33] px-4 py-2 rounded-lg font-semibold"
               >
                 <FiPlusCircle size={22} />
-                E'lon qo‘shish
+                {t("postItem")}
               </button>
 
               {/* DROPDOWN SELECT */}
@@ -77,7 +87,6 @@ const RizoHeader = () => {
                 </div>
               )}
             </div>
-
           </div>
         </div>
       </header>
