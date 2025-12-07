@@ -1,0 +1,74 @@
+import React, { useState } from 'react';
+
+const TopibOldim = () => {
+  const [form, setForm] = useState({
+    type: "",
+    color: "",
+    location: "",
+    phone: "",
+    description: ""
+  });
+
+  function handleChange(e) {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log("Topilgan hayvon:", form);
+  }
+
+  return (
+    <div className="max-w-xl mx-auto mt-10 p-5 bg-white shadow-lg rounded-xl">
+      <h1 className="text-2xl font-bold mb-4 text-center">🐶 Hayvon topib oldim</h1>
+
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+
+        <input
+          type="text"
+          name="type"
+          placeholder="Hayvon turi (it, mushuk...)"
+          onChange={handleChange}
+          className="border p-3 rounded-lg"
+        />
+
+        <input
+          type="text"
+          name="color"
+          placeholder="Rangi"
+          onChange={handleChange}
+          className="border p-3 rounded-lg"
+        />
+
+        <input
+          type="text"
+          name="location"
+          placeholder="Qayerdan topding?"
+          onChange={handleChange}
+          className="border p-3 rounded-lg"
+        />
+
+        <input
+          type="text"
+          name="phone"
+          placeholder="Telefon raqaming"
+          onChange={handleChange}
+          className="border p-3 rounded-lg"
+        />
+
+        <textarea
+          name="description"
+          placeholder="Qo‘shimcha ma'lumot..."
+          onChange={handleChange}
+          className="border p-3 rounded-lg h-28"
+        />
+
+        <button className="bg-green-600 text-white py-3 rounded-lg hover:bg-green-700">
+          E'lonni joylash
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export default TopibOldim;
