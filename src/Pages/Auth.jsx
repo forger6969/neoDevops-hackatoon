@@ -18,20 +18,32 @@ const Auth = () => {
   const handleResetChange = (e) => setResetForm({ ...resetForm, [e.target.name]: e.target.value });
 
   // LOGIN
-  const handleLoginSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      const res = await axios.post(`${BASE_URL}/auth/login`, loginForm);
-      localStorage.setItem('token', res.data.token);
-      alert('Login muvaffaqiyatli!');
-      window.location.href = '/';
-    } catch (err) {
-      alert(err.response?.data?.message || 'Login xatosi');
-    } finally {
-      setLoading(false);
-    }
-  };
+// LOGIN
+const handleLoginSubmit = async (e) => {
+  e.preventDefault();
+  setLoading(true);
+  try {
+    const res = await axios.post(`${BASE_URL}/auth/login`, loginForm);
+
+    // Token va user ma'lumotlarini olish
+    const token = res.data.token;
+    localStorage.setItem('token', token);
+
+    // User ma'lumotlarini olish
+    const userRes = await axios.get(`${BASE_URL}/auth/me`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    localStorage.setItem('user', JSON.stringify(userRes.data));
+
+    alert('Login muvaffaqiyatli!');
+    window.location.href = '/';
+  } catch (err) {
+    alert(err.response?.data?.message || 'Login xatosi');
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   // REGISTER
   const handleRegisterSubmit = async (e) => {
