@@ -40,11 +40,9 @@ const TopibOldim = () => {
     }
 
     try {
-      const res = await axios.post("http://localhost:3001/pets", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data"
-        }
-      });
+      const res = await axios.post("https://hakaton-api-2.onrender.com/post/create", {
+        form
+      })
       console.log("Успешно отправлено:", res.data);
       alert("E'lon muvaffaqiyatli joylandi!");
       setForm({
