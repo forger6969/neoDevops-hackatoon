@@ -6,7 +6,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import RizoHeader from "./components/RizoHeader.jsx";
+import RizoHeader from "./Components/Rizoheader.jsx";
 import Home from "./Pages/Home.jsx";
 import Topiboldim from "./Pages/Topiboldim.jsx";
 import Yoqotibqoydim from "./Pages/Yoqotibqoydim.jsx";
