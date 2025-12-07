@@ -16,7 +16,7 @@ const Pets = () => {
     const fetchPets = async () => {
       try {
         setLoading(true);
-        const response = await fetch('http://localhost:3001/pets');
+        const response = await fetch('https://hakaton-api-2.onrender.com/api/pets');
         if (!response.ok) {
           throw new Error('Failed to fetch pets');
         }

@@ -19,7 +19,7 @@ const PetDetails = () => {
       try {
         setLoading(true);
         // MongoDB ID format uchun to'g'ridan-to'g'ri ID bilan qidirish
-        const response = await fetch(`http://localhost:3001/pets`);
+        const response = await fetch(`https://hakaton-api-2.onrender.com/api/pets`);
         if (!response.ok) {
           throw new Error('Failed to fetch pets');
         }
@@ -128,7 +128,7 @@ const PetDetails = () => {
           <div className="relative">
             <img
               src={pet.images && pet.images.length > 0
-                ? `http://localhost:3001${pet.images[0]}`
+                ? `https://hakaton-api-2.onrender.com/api/pets${pet.images[0]}`
                 : 'https://via.placeholder.com/800x400?text=No+Image'}
               alt={pet.name}
               className="w-full h-96 object-cover"
