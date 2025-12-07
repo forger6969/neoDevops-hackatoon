@@ -5,9 +5,9 @@ import logo from "../assets/logo.png";
 import { useTranslation } from "react-i18next";
 
 const RizoHeader = () => {
+  const { i18n, t } = useTranslation();
   const navigate = useNavigate();
   const [openSelect, setOpenSelect] = useState(false);
-  const { i18n, t } = useTranslation();
 
   const changeLanguage = (e) => {
     i18n.changeLanguage(e.target.value);
@@ -68,7 +68,7 @@ const RizoHeader = () => {
 
               {/* DROPDOWN SELECT */}
               {openSelect && (
-                <div className="absolute right-0 mt-2 w-44 bg-white text-black rounded-lg shadow-lg overflow-hidden">
+                <div className="absolute right-0 mt-2 w-44 bg-white text-black rounded-lg shadow-lg overflow-hidden z-50">
                   <Link
                     to="/topiboldim"
                     className="block w-full text-left px-4 py-2 hover:bg-gray-100"

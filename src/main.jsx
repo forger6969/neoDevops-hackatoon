@@ -30,6 +30,10 @@ const router = createBrowserRouter([
         path: "/yoqotibqoydim",
         element: <Yoqotibqoydim />,
       },
+      {
+        path: "/favorites",
+        element: <ForFavorites />
+      }
     ],
   },
 ]);

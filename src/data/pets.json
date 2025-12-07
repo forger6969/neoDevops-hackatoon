@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "Mila",
+    "type": "cat",
+    "category": "Mushuklar",
+    "status": "lost",
+    "image": "/img/cat1.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Sharik",
+    "type": "dog",
+    "category": "Itlar",
+    "status": "found",
+    "image": "/img/dog1.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Polly",
+    "type": "parrot",
+    "category": "Qushlar",
+    "status": "lost",
+    "image": "/img/parrot1.jpg"
+  }
+]

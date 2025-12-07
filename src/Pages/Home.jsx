@@ -1,8 +1,14 @@
 import React from 'react'
-
+import Pets from '../Components/Pets.jsx'
 const Home = () => {
   return (
-    <div>Home</div>
+    <div>
+
+
+
+
+      <Pets/>
+    </div>
   )
 }
 
