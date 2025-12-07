@@ -1,0 +1,48 @@
+{
+    "pets": [
+        {
+            "_id": "69351723e15655c1a18db46c",
+            "title": "bobik",
+            "type": "dog",
+            "name": "bobik",
+            "color": "red",
+            "description": "tekin kuchu",
+            "lastSeenLocation": "sergeli",
+            "images": [
+                "/uploads/1765087011167-223873682.jpg"
+            ],
+            "owner": {
+                "_id": "693516d9e15655c1a18db468",
+                "name": "pokemon",
+                "email": "newkanekichan13@gmail.com"
+            },
+            "status": "found",
+            "isSolved": false,
+            "createdAt": "2025-12-07T05:56:51.173Z",
+            "updatedAt": "2025-12-07T05:56:51.173Z",
+            "__v": 0
+        },
+        {
+            "_id": "6935165ce15655c1a18db463",
+            "title": "bobik",
+            "type": "dog",
+            "name": "bobik",
+            "color": "black",
+            "description": "ustida hoodie bor ",
+            "lastSeenLocation": "yunusobod",
+            "images": [
+                "/uploads/1765086812571-627604718.jpg"
+            ],
+            "owner": {
+                "_id": "69350f61debdfc1dad79c323",
+                "name": "jasur",
+                "email": "animesila89@gmail.com"
+            },
+            "status": "lost",
+            "isSolved": false,
+            "createdAt": "2025-12-07T05:53:32.604Z",
+            "updatedAt": "2025-12-07T05:53:32.604Z",
+            "__v": 0
+        }
+    ]
+}

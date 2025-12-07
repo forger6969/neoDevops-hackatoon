@@ -20,5 +20,7 @@
   "newAnnouncements": "Yangi e'lonlar",
   "foundResults": "Biz {{count}} ta e'lon topdik",
   "noFavorites": "Sevimlilar ro'yxati bo'sh",
-  "noResults": "Hech narsa topilmadi"
+  "noResults": "Hech narsa topilmadi",
+    "postItem": "Elon qoshish",
+    "profilItem": "Profil"
 }

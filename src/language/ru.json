@@ -21,5 +21,6 @@
   "newAnnouncements": "Новые объявления",
   "foundResults": "Мы нашли {{count}} объявлений",
   "noFavorites": "Список избранного пуст",
-  "noResults": "Ничего не найдено"
+  "noResults": "Ничего не найдено",
+    "profilItem": "Профиль"
 }
