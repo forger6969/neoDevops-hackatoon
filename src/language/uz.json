@@ -1,4 +1,24 @@
 {
     "welcome": "Xush kelibsz",
-    "forgerFavoritesItem": "Saralangan elonlar"
+    "forgerFavoritesItem": "Saralangan elonlar",
+    "filters": "Filtrlar",
+  "category": "Rukn",
+  "allCategories": "Barcha kategoriyalar",
+  "price": "Narx",
+  "currency": "so'm",
+  "currencyLabel": "valyuta",
+  "status": "Holati",
+  "allStatuses": "Barcha holatlar",
+  "lost": "Yo'qolgan",
+  "found": "Topilgan",
+  "allAnnouncements": "Hamma e'lonlar",
+  "favorites": "Sevimlilar",
+  "allAnimals": "Barcha hayvonlar",
+  "sort": "Saralash",
+  "selected": "Tanlangan",
+  "byPrice": "Narx bo'yicha",
+  "newAnnouncements": "Yangi e'lonlar",
+  "foundResults": "Biz {{count}} ta e'lon topdik",
+  "noFavorites": "Sevimlilar ro'yxati bo'sh",
+  "noResults": "Hech narsa topilmadi"
 }

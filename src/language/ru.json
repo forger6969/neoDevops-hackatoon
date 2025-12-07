@@ -1,5 +1,25 @@
 {
     "welcome": "Добро пожаловать",
     "forgerFavoritesItem": "Избранные объявления",
-    "postItem": "Подать обьявления"
+    "postItem": "Подать обьявления",
+    "filters": "Фильтры",
+  "category": "Рубрика",
+  "allCategories": "Все категории",
+  "price": "Цена",
+  "currency": "сум",
+  "currencyLabel": "валюта",
+  "status": "Статус",
+  "allStatuses": "Все статусы",
+  "lost": "Потерянные",
+  "found": "Найденные",
+  "allAnnouncements": "Все объявления",
+  "favorites": "Избранное",
+  "allAnimals": "Все животные",
+  "sort": "Сортировка",
+  "selected": "Выбранное",
+  "byPrice": "По цене",
+  "newAnnouncements": "Новые объявления",
+  "foundResults": "Мы нашли {{count}} объявлений",
+  "noFavorites": "Список избранного пуст",
+  "noResults": "Ничего не найдено"
 }

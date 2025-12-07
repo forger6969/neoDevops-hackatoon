@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Heart, Grid, List } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const Pets = () => {
+  const { t, i18n } = useTranslation();
+
   const initialPets = [
     {
       id: 1,
@@ -9,7 +12,7 @@ const Pets = () => {
       type: "cat",
       category: "Mushuklar",
       status: "lost",
-      price: "1200000",
+      price: 1200000,
       location: "Chilonzor",
       image: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=400&h=300&fit=crop"
     },
@@ -19,7 +22,7 @@ const Pets = () => {
       type: "cat",
       category: "Mushuklar",
       status: "found",
-      price: "800000",
+      price: 800000,
       location: "Yunusobod",
       image: "https://images.unsplash.com/photo-1573865526739-10c1de0ad0ac?w=400&h=300&fit=crop"
     },
@@ -29,7 +32,7 @@ const Pets = () => {
       type: "dog",
       category: "Itlar",
       status: "lost",
-      price: "1500000",
+      price: 1500000,
       location: "Sergeli",
       image: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&h=300&fit=crop"
     },
@@ -39,7 +42,7 @@ const Pets = () => {
       type: "dog",
       category: "Itlar",
       status: "found",
-      price: "2000000",
+      price: 2000000,
       location: "Mirobod",
       image: "https://images.unsplash.com/photo-1552053831-71594a27632d?w=400&h=300&fit=crop"
     },
@@ -49,7 +52,7 @@ const Pets = () => {
       type: "parrot",
       category: "Qushlar",
       status: "lost",
-      price: "500000",
+      price: 500000,
       location: "Olmazor",
       image: "https://images.unsplash.com/photo-1552728089-57bdde30beb3?w=400&h=300&fit=crop"
     },
@@ -59,7 +62,7 @@ const Pets = () => {
       type: "parrot",
       category: "Qushlar",
       status: "found",
-      price: "600000",
+      price: 600000,
       location: "Yakkasaroy",
       image: "https://images.unsplash.com/photo-1571752726703-5e7d1f6a986d?w=400&h=300&fit=crop"
     }
@@ -67,12 +70,21 @@ const Pets = () => {
 
   const [pets, setPets] = useState(initialPets);
   const [favorites, setFavorites] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('Hamma e\'lonlar');
-  const [selectedPrice, setSelectedPrice] = useState('dan');
-  const [selectedStatus, setSelectedStatus] = useState('gacha');
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(10000000);
+  const [selectedStatus, setSelectedStatus] = useState('all');
   const [activeTab, setActiveTab] = useState('all');
   const [viewMode, setViewMode] = useState('grid');
-  const [sortBy, setSortBy] = useState('Tanlangan');
+  const [sortBy, setSortBy] = useState('default');
+
+  // Get unique categories from pets
+  const categories = [...new Set(pets.map(pet => pet.category))];
+
+  // Get min and max prices
+  const allPrices = pets.map(pet => pet.price);
+  const minPossiblePrice = Math.min(...allPrices);
+  const maxPossiblePrice = Math.max(...allPrices);
 
   // Load favorites from localStorage on mount
   useEffect(() => {
@@ -97,16 +109,23 @@ const Pets = () => {
     });
   };
 
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+  };
+
   const getFilteredPets = () => {
     let filtered = pets;
 
     // Filter by category
-    if (selectedCategory !== 'Hamma e\'lonlar') {
+    if (selectedCategory !== 'all') {
       filtered = filtered.filter(pet => pet.category === selectedCategory);
     }
 
+    // Filter by price range
+    filtered = filtered.filter(pet => pet.price >= minPrice && pet.price <= maxPrice);
+
     // Filter by status
-    if (selectedStatus !== 'gacha') {
+    if (selectedStatus !== 'all') {
       filtered = filtered.filter(pet => pet.status === selectedStatus);
     }
 
@@ -125,7 +144,27 @@ const Pets = () => {
       {/* Header */}
       <div className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-4">
-          <h1 className="text-2xl font-bold text-gray-900">Filtrlar</h1>
+          <div className="flex justify-between items-center">
+            <h1 className="text-2xl font-bold text-gray-900">{t('filters')}</h1>
+            <div className="flex gap-2">
+              <button
+                onClick={() => changeLanguage('uz')}
+                className={`px-4 py-2 rounded ${
+                  i18n.language === 'uz' ? 'bg-blue-600 text-white' : 'bg-gray-200'
+                }`}
+              >
+                UZ
+              </button>
+              <button
+                onClick={() => changeLanguage('ru')}
+                className={`px-4 py-2 rounded ${
+                  i18n.language === 'ru' ? 'bg-blue-600 text-white' : 'bg-gray-200'
+                }`}
+              >
+                RU
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -133,46 +172,59 @@ const Pets = () => {
       <div className="bg-white border-b">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {/* Category Filter */}
+            {/* Category Filter - Dynamic */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Rukn</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">{t('category')}</label>
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               >
-                <option>Hamma e'lonlar</option>
-                <option>Mushuklar</option>
-                <option>Itlar</option>
-                <option>Qushlar</option>
+                <option value="all">{t('allCategories')}</option>
+                {categories.map(category => (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
+                ))}
               </select>
             </div>
 
-            {/* Price Filter */}
+            {/* Price Filter - Range */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Narx</label>
-              <select
-                value={selectedPrice}
-                onChange={(e) => setSelectedPrice(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              >
-                <option>dan</option>
-                <option>500000</option>
-                <option>1000000</option>
-                <option>1500000</option>
-              </select>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                {t('price')}: {minPrice.toLocaleString()} - {maxPrice.toLocaleString()} {t('currency')}
+              </label>
+              <div className="space-y-2">
+                <input
+                  type="range"
+                  min={minPossiblePrice}
+                  max={maxPossiblePrice}
+                  value={minPrice}
+                  onChange={(e) => setMinPrice(Number(e.target.value))}
+                  className="w-full"
+                />
+                <input
+                  type="range"
+                  min={minPossiblePrice}
+                  max={maxPossiblePrice}
+                  value={maxPrice}
+                  onChange={(e) => setMaxPrice(Number(e.target.value))}
+                  className="w-full"
+                />
+              </div>
             </div>
 
             {/* Status Filter */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Zoti</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">{t('status')}</label>
               <select
                 value={selectedStatus}
                 onChange={(e) => setSelectedStatus(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               >
-                <option value="lost">Yo'qolgan</option>
-                <option value="found">Topilgan</option>
+                <option value="all">{t('allStatuses')}</option>
+                <option value="lost">{t('lost')}</option>
+                <option value="found">{t('found')}</option>
               </select>
             </div>
           </div>
@@ -191,7 +243,7 @@ const Pets = () => {
                   : 'border-transparent text-gray-500 hover:text-gray-700'
               }`}
             >
-              Hamma e'lonlar
+              {t('allAnnouncements')}
             </button>
             <button
               onClick={() => setActiveTab('favorites')}
@@ -201,7 +253,7 @@ const Pets = () => {
                   : 'border-transparent text-gray-500 hover:text-gray-700'
               }`}
             >
-              Sevimlilar ({favorites.length})
+              {t('favorites')} ({favorites.length})
             </button>
           </div>
         </div>
@@ -212,18 +264,18 @@ const Pets = () => {
         {/* Toolbar */}
         <div className="flex justify-between items-center mb-6">
           <div className="text-sm text-gray-600">
-            Mushuklar savdosi
+            {selectedCategory === 'all' ? t('allAnimals') : selectedCategory}
           </div>
           <div className="flex items-center space-x-4">
-            <span className="text-sm text-gray-600">Saralash:</span>
+            <span className="text-sm text-gray-600">{t('sort')}:</span>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
               className="px-4 py-2 border border-gray-300 rounded-lg text-sm"
             >
-              <option>Tanlangan</option>
-              <option>Narx bo'yicha</option>
-              <option>Yangi e'lonlar</option>
+              <option value="default">{t('selected')}</option>
+              <option value="price">{t('byPrice')}</option>
+              <option value="new">{t('newAnnouncements')}</option>
             </select>
             <div className="flex space-x-2">
               <button
@@ -239,13 +291,13 @@ const Pets = () => {
                 <Grid className="w-5 h-5" />
               </button>
             </div>
-            <span className="text-sm text-gray-600">valyuta: so'm</span>
+            <span className="text-sm text-gray-600">{t('currencyLabel')}: {t('currency')}</span>
           </div>
         </div>
 
         {/* Results Count */}
         <h2 className="text-2xl font-bold mb-6">
-          Biz {filteredPets.length.toLocaleString()} ta e'lon topdik
+          {t('foundResults', { count: filteredPets.length })}
         </h2>
 
         {/* Pet Cards Grid */}
@@ -278,14 +330,14 @@ const Pets = () => {
                     ? 'bg-red-100 text-red-800'
                     : 'bg-green-100 text-green-800'
                 }`}>
-                  {pet.status === 'lost' ? "Yo'qolgan" : 'Topilgan'}
+                  {pet.status === 'lost' ? t('lost') : t('found')}
                 </span>
               </div>
               <div className="p-4">
                 <h3 className="font-semibold text-lg mb-2">{pet.name}</h3>
                 <p className="text-sm text-gray-600 mb-2">{pet.location}</p>
                 <p className="text-xl font-bold text-blue-600">
-                  {parseInt(pet.price).toLocaleString()} so'm
+                  {pet.price.toLocaleString()} {t('currency')}
                 </p>
               </div>
             </div>
@@ -297,8 +349,8 @@ const Pets = () => {
           <div className="text-center py-12">
             <p className="text-gray-500 text-lg">
               {activeTab === 'favorites'
-                ? "Hali sevimlilar ro'yxati bo'sh"
-                : "Hech qanday e'lon topilmadi"}
+                ? t('noFavorites')
+                : t('noResults')}
             </p>
           </div>
         )}

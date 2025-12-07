@@ -1,8 +1,12 @@
 import React from 'react'
-
+import Rizoheader from './Components/Rizoheader'
+import { Outlet } from 'react-router-dom'
 const App = () => {
   return (
-    <div>App</div>
+    <div>
+      <Rizoheader/>
+      <Outlet/>
+    </div>
   )
 }
 
