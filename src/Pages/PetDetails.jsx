@@ -20,10 +20,14 @@ const PetDetails = () => {
     const fetchPet = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`${BASE_URL}/pets`); // Render URL ishlatildi
-        const pets = res.data;
-
-        const foundPet = pets.find(p => p._id === petId);
+        // MongoDB ID format uchun to'g'ridan-to'g'ri ID bilan qidirish
+        const response = await fetch(`https://hakaton-api-2.onrender.com/api/pets`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch pets');
+        }
+        const data = await response.json();
+        // Array ichidan ID bo'yicha topish
+        const foundPet = data.find(p => p._id === petId);
         if (!foundPet) {
           throw new Error('Pet not found');
         }
@@ -119,7 +123,7 @@ const PetDetails = () => {
           <div className="relative">
             <img
               src={pet.images && pet.images.length > 0
-                ? `${BASE_URL}${pet.images[0]}` // Render server bilan to'g'rilandi
+                ? `https://hakaton-api-2.onrender.com/api/pets${pet.images[0]}`
                 : 'https://via.placeholder.com/800x400?text=No+Image'}
               alt={pet.name}
               className="w-full h-96 object-cover"
