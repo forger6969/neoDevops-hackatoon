@@ -25,5 +25,7 @@
     "profilItem": "Профиль",
     "findOption": "Я нашел",
     "lostOption": "Я потерял",
-    "petTypeForm":"Тип животгн"
+    "petTypeForm": "Тип животных",
+    "authFormEmail": "Почта",
+    "authFormPassword": "Пароль"
 }

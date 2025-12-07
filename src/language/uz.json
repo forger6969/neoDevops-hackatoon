@@ -25,5 +25,7 @@
     "profilItem": "Profil",
     "findOption": "Topib oldim",
     "lostOption": "Yoqotib qoydim",
-    "petTypeForm": "Hayvon nomi (mushuk, it...)"
+    "petTypeForm": "Hayvon nomi (mushuk, it...)",
+    "authFormEmail": "Email",
+    "authFormPassword": "Parol"
 }
