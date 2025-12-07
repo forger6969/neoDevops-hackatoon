@@ -9,7 +9,8 @@ import {
 import Home from './Pages/Home.jsx';
 import ForFavorites from './Pages/forFavorites.jsx';
 import "./language/init.js";
-
+import PetDetails from './Pages/PetDetails.jsx';
+import Pets from './Components/Pets.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -22,6 +23,14 @@ const router = createBrowserRouter([
       {
         path: "/favorites",
         element: <ForFavorites />
+      },
+      {
+        path: "/pets/:petId",
+        element: <PetDetails />
+      },
+      {
+        path: "/pets",
+        element: <Pets />
       }
     ]
   },
