@@ -1,19 +1,15 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useTranslation } from 'react-i18next';
-import { FiUser, FiMail, FiLock, FiPhone } from 'react-icons/fi';
 
 const BASE_URL = 'http://localhost:8080/api';
 
 const Auth = () => {
-  const { t } = useTranslation();
   const [step, setStep] = useState('login'); 
   const [loading, setLoading] = useState(false);
 
+  // Login, register va reset formlari
   const [loginForm, setLoginForm] = useState({ email: '', password: '' });
-  const [registerForm, setRegisterForm] = useState({ name: '', email: '', phone: '', password: '', confirmPassword: '' });
-  
-  // RESET PASSWORD STATE
+  const [registerForm, setRegisterForm] = useState({ name: '', surname: '', email: '', password: '' });
   const [resetForm, setResetForm] = useState({ email: '', code: '', newPassword: '' });
   const [codeSent, setCodeSent] = useState(false);
 
@@ -21,7 +17,7 @@ const Auth = () => {
   const handleRegisterChange = (e) => setRegisterForm({ ...registerForm, [e.target.name]: e.target.value });
   const handleResetChange = (e) => setResetForm({ ...resetForm, [e.target.name]: e.target.value });
 
-  // LOGIN SUBMIT
+  // LOGIN
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -37,13 +33,9 @@ const Auth = () => {
     }
   };
 
-  // REGISTER SUBMIT
+  // REGISTER
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
-    if (registerForm.password !== registerForm.confirmPassword) {
-      alert('Parollar mos kelmadi!');
-      return;
-    }
     setLoading(true);
     try {
       await axios.post(`${BASE_URL}/auth/register`, registerForm);
@@ -73,7 +65,7 @@ const Auth = () => {
     }
   };
 
-  // RESET PASSWORD SUBMIT
+  // RESET PASSWORD
   const handleResetSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -123,30 +115,24 @@ const Auth = () => {
         {/* LOGIN FORM */}
         {step === 'login' && (
           <form className="space-y-5" onSubmit={handleLoginSubmit}>
-            <div className="relative">
-              <FiMail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={loginForm.email}
-                onChange={handleLoginChange}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-900"
-                required
-              />
-            </div>
-            <div className="relative">
-              <FiLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
-              <input
-                type="password"
-                name="password"
-                placeholder="Parol"
-                value={loginForm.password}
-                onChange={handleLoginChange}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-900"
-                required
-              />
-            </div>
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={loginForm.email}
+              onChange={handleLoginChange}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-900"
+              required
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="Parol"
+              value={loginForm.password}
+              onChange={handleLoginChange}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-900"
+              required
+            />
             <button type="submit" disabled={loading} className="w-full bg-teal-900 text-white py-3 rounded-lg font-semibold hover:bg-teal-800 transition">
               {loading ? 'Yuklanmoqda...' : 'Kirish'}
             </button>
@@ -156,73 +142,49 @@ const Auth = () => {
         {/* REGISTER FORM */}
         {step === 'register' && (
           <form className="space-y-5" onSubmit={handleRegisterSubmit}>
-            <div className="relative">
-              <FiUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
-              <input
-                type="text"
-                name="name"
-                placeholder="Ism va familiya"
-                value={registerForm.name}
-                onChange={handleRegisterChange}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-900"
-                required
-              />
-            </div>
-            <div className="relative">
-              <FiMail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={registerForm.email}
-                onChange={handleRegisterChange}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-900"
-                required
-              />
-            </div>
-            <div className="relative">
-              <FiPhone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
-              <input
-                type="tel"
-                name="phone"
-                placeholder="Telefon raqam (+998...)"
-                value={registerForm.phone}
-                onChange={handleRegisterChange}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-900"
-                required
-              />
-            </div>
-            <div className="relative">
-              <FiLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
-              <input
-                type="password"
-                name="password"
-                placeholder="Parol"
-                value={registerForm.password}
-                onChange={handleRegisterChange}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-900"
-                required
-              />
-            </div>
-            <div className="relative">
-              <FiLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
-              <input
-                type="password"
-                name="confirmPassword"
-                placeholder="Parolni tasdiqlang"
-                value={registerForm.confirmPassword}
-                onChange={handleRegisterChange}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-900"
-                required
-              />
-            </div>
+            <input
+              type="text"
+              name="name"
+              placeholder="Ism"
+              value={registerForm.name}
+              onChange={handleRegisterChange}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-900"
+              required
+            />
+            <input
+              type="text"
+              name="surname"
+              placeholder="Familiya"
+              value={registerForm.surname}
+              onChange={handleRegisterChange}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-900"
+              required
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={registerForm.email}
+              onChange={handleRegisterChange}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-900"
+              required
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="Parol"
+              value={registerForm.password}
+              onChange={handleRegisterChange}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-900"
+              required
+            />
             <button type="submit" disabled={loading} className="w-full bg-teal-900 text-white py-3 rounded-lg font-semibold hover:bg-teal-800 transition">
               {loading ? 'Yuklanmoqda...' : 'Ro\'yxatdan o\'tish'}
             </button>
           </form>
         )}
 
-        {/* RESET FORM */}
+        {/* RESET PASSWORD FORM */}
         {step === 'reset' && (
           <form className="space-y-5" onSubmit={handleResetSubmit}>
             <div className="flex gap-2">
@@ -232,39 +194,31 @@ const Auth = () => {
                 placeholder="Email"
                 value={resetForm.email}
                 onChange={handleResetChange}
-                className="flex-1 pl-4 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-900"
+                className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-900"
                 required
               />
               <button type="button" onClick={sendResetCode} disabled={loading} className="bg-teal-900 text-white px-4 rounded-lg hover:bg-teal-800 transition">
                 {loading ? 'Yuklanmoqda...' : 'Send Code'}
               </button>
             </div>
-
-            <div className="relative">
-              <input
-                type="text"
-                name="code"
-                placeholder="Code"
-                value={resetForm.code}
-                onChange={handleResetChange}
-                className="w-full pl-4 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-900"
-                required
-              />
-            </div>
-
-            <div className="relative">
-              <FiLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
-              <input
-                type="password"
-                name="newPassword"
-                placeholder="Yangi parol"
-                value={resetForm.newPassword}
-                onChange={handleResetChange}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-900"
-                required
-              />
-            </div>
-
+            <input
+              type="text"
+              name="code"
+              placeholder="Code"
+              value={resetForm.code}
+              onChange={handleResetChange}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-900"
+              required
+            />
+            <input
+              type="password"
+              name="newPassword"
+              placeholder="Yangi parol"
+              value={resetForm.newPassword}
+              onChange={handleResetChange}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-900"
+              required
+            />
             <button type="submit" disabled={loading} className="w-full bg-teal-900 text-white py-3 rounded-lg font-semibold hover:bg-teal-800 transition">
               {loading ? 'Yuklanmoqda...' : 'Parolni tiklash'}
             </button>
